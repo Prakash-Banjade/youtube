@@ -20,7 +20,7 @@ function App() {
   const location = useLocation();
   useEffect(() => {
     document.documentElement.scrollTop = 0;
-    if (location.pathname.includes("shorts")) {
+    if (location.pathname === '/shorts') {
       document.querySelector('main').classList.add('inShorts')
       document.body.style.overflowY = "hidden";
       setOrientation('portrait')

@@ -110,3 +110,15 @@ a{
   left: 230px;
   z-index: 999;
 }
+
+@media screen and (max-width: 599px){
+  main, main.inShorts{
+    padding: 0;
+  }
+
+  .shortVideoItem{
+    width: 100% !important;
+    height: 95% !important;
+    border-radius: 0 !important;
+  }
+}
