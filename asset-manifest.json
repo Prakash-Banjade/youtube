@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/youtube/static/css/main.93e62998.css",
+    "main.js": "/youtube/static/js/main.72cf2646.js",
+    "static/css/909.327e31d7.chunk.css": "/youtube/static/css/909.327e31d7.chunk.css",
+    "static/js/909.2b4c335a.chunk.js": "/youtube/static/js/909.2b4c335a.chunk.js",
+    "static/css/867.0cc82241.chunk.css": "/youtube/static/css/867.0cc82241.chunk.css",
+    "static/js/867.df7736d5.chunk.js": "/youtube/static/js/867.df7736d5.chunk.js",
+    "static/media/YouTubeShorts.svg": "/youtube/static/media/YouTubeShorts.4501444dda381dfda001a8d533ccb90e.svg",
+    "static/media/YouTube-Logo.svg": "/youtube/static/media/YouTube-Logo.52190ee2d653978a5e00fd9284a44730.svg",
+    "static/media/youtubekids.svg": "/youtube/static/media/youtubekids.61e71dd9366ea6a4e4b08a2c2ddb7706.svg",
+    "static/media/youtubeTV.svg": "/youtube/static/media/youtubeTV.5c0eb5a21a951eed737a8f772ea4a128.svg",
+    "static/media/youtubeStudio.svg": "/youtube/static/media/youtubeStudio.e47384274f49629d0d3b816bdcfdc02a.svg",
+    "static/media/live.svg": "/youtube/static/media/live.d0c2b2fdd510ee627c05cd7b7846e235.svg",
+    "index.html": "/youtube/index.html",
+    "static/media/youtubemusic.svg": "/youtube/static/media/youtubemusic.12349b9489a4472f1df3792c8e180637.svg",
+    "main.93e62998.css.map": "/youtube/static/css/main.93e62998.css.map",
+    "main.72cf2646.js.map": "/youtube/static/js/main.72cf2646.js.map",
+    "909.327e31d7.chunk.css.map": "/youtube/static/css/909.327e31d7.chunk.css.map",
+    "909.2b4c335a.chunk.js.map": "/youtube/static/js/909.2b4c335a.chunk.js.map",
+    "867.0cc82241.chunk.css.map": "/youtube/static/css/867.0cc82241.chunk.css.map",
+    "867.df7736d5.chunk.js.map": "/youtube/static/js/867.df7736d5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.93e62998.css",
+    "static/js/main.72cf2646.js"
+  ]
+}
