@@ -1,0 +1,17 @@
+.shortVideoItem {
+  height: 90%;
+  background: red;
+  width: 320px;
+  margin: auto;
+  border-radius: 28px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+
+  video{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+
+  }
+}
