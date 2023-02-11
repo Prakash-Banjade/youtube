@@ -35,13 +35,13 @@ export default function useVideoSearch(
       .then((res) => {
         setProgress(50);
         // set location based on query
-        const newQueryParams = new URLSearchParams(window.location.search);
-        newQueryParams.set("q", query);
-        window.history.pushState(
-          {},
-          "",
-          `${window.location.pathname}?${newQueryParams.toString()}`
-        );
+        // const newQueryParams = new URLSearchParams(window.location.search);
+        // newQueryParams.set("q", query);
+        // window.history.pushState(
+        //   {},
+        //   "",
+        //   `${window.location.pathname}?${newQueryParams.toString()}`
+        // );
 
         setProgress(80);
         setIsloading(false);
