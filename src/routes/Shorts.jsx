@@ -1,81 +1,40 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useContext, useRef, useEffect } from "react";
 import { VideosContext } from "../GetVideos";
 
 import "../css/Shorts.scss";
-import { useLocation } from "react-router-dom";
+import useVideoSearch from "../useVideoSearch";
+import ShortVideoItem from "../components/ShortVideoItem";
 
-const ShortVideoItem = ({ src, poster }) => {
-  const videoRef = useRef(null);
 
-  const location = useLocation()
-  const handleLoadedData = () => {
-    if (location.pathname === "/shorts") videoRef.current.play();
-  };
-  return (
-    <div className="shortVideoItem">
-      <video
-        ref={videoRef}
-        src={src}
-        poster={poster}
-        controls
-        onLoadedData={handleLoadedData}
-        autoPlay
-        preload="auto"
-      />
-    </div>
-  );
-};
 
 const Shorts = () => {
+  const { query, page } = useContext(VideosContext);
+  const { result } = useVideoSearch(query, page, "portrait");
   const [currentDivIndex, setCurrentDivIndex] = useState(0);
+  const [slideClass, setSlideClass] = useState("");
+  const [touchStartY, setTouchStartY] = useState(0);
+  const [touchMoveY, setTouchMoveY] = useState(0);
 
-  const { result } = useContext(VideosContext);
-
-  const divs = result.map((video) => {
+  const divs = result.map((video, index) => {
     return (
-      <ShortVideoItem src={video.video_files[2].link} poster={video.image} />
+      <ShortVideoItem
+        key={video.id}
+        src={video.video_files[2].link}
+        poster={video.image}
+        preload={currentDivIndex === index ? "auto" : "none"}
+        play={currentDivIndex === index ? true : false}
+        currentDivIndex={currentDivIndex}
+        id={video.id}
+        channelName={video.user.name}
+      />
     );
   });
 
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === "ArrowDown" || event.key === "ArrowUp") {
-        navigate(event.key === "ArrowDown" ? 1 : -1);
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-
-    const handleTouchStart = (event) => {
-      setStartY(event.touches[0].clientY);
-    };
-    window.addEventListener("touchstart", handleTouchStart);
-
-    const handleTouchMove = (event) => {
-      setEndY(event.touches[0].clientY);
-    };
-    window.addEventListener("touchmove", handleTouchMove);
-
-    const handleTouchEnd = (event) => {
-      if (endY > startY + 50) {
-        navigate(-1);
-      } else if (endY < startY - 50) {
-        navigate(1);
-      }
-      setStartY(null);
-      setEndY(null);
-    };
-    window.addEventListener("touchend", handleTouchEnd);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchmove", handleTouchMove);
-      window.removeEventListener("touchend", handleTouchEnd);
-    };
-  }, [divs.length, currentDivIndex]);
-
-  const [startY, setStartY] = useState(null);
-  const [endY, setEndY] = useState(null);
+  const handleKeyDown = (event) => {
+    if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+      navigate(event.key === "ArrowDown" ? 1 : -1);
+    }
+  };
 
   const navigate = (direction) => {
     const nextIndex = currentDivIndex + direction;
@@ -84,17 +43,54 @@ const Shorts = () => {
     }
   };
 
+  const handleTouchStart = (event) => {
+    if (touchStartY === 0) {
+      setTouchStartY(event.touches[0].clientY);
+    }
+  };
+
+  const handleTouchMove = (event) => {
+    setTouchMoveY(event.touches[0].clientY);
+  };
+
+  const handleTouchEnd = (event) => {
+    if (touchMoveY === 0) {
+      setTouchStartY(0);
+      setTouchMoveY(0);
+      return;
+    }
+
+    const nextIndex = currentDivIndex + (touchMoveY - touchStartY > 0 ? -1 : 1);
+    if (nextIndex >= 0 && nextIndex < divs.length) {
+      setCurrentDivIndex(nextIndex);
+      setTimeout(() => {
+        setSlideClass("");
+      }, 500);
+      setSlideClass(touchMoveY - touchStartY > 0 ? "slide-up" : "slide-down");
+    }
+    setTouchStartY(0);
+    setTouchMoveY(0);
+  };
+
   return (
     <div style={{ position: "relative" }}>
       {divs.map((div, index) => (
         <div
           key={index}
+          className={`slide-container ${
+            index === currentDivIndex ? "" : "hidden"
+          } ${index === currentDivIndex ? slideClass : ""}`}
+          tabIndex={0}
+          onKeyDown={handleKeyDown}
+          onTouchEnd={handleTouchEnd}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
           style={{
             position: "absolute",
             top: 0,
             left: 0,
             width: "100%",
-            height: "100vh",
+            height: "calc(100vh - 55px)",
             transition: "transform 0.5s ease-out",
             transform: `translateY(${
               index === currentDivIndex

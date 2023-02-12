@@ -18,6 +18,8 @@ import Aside_Explore from "./Aside_Explore";
 import Aside_MadeFromYouTube from "./Aside_MadeFromYouTube";
 import Aside_Extra from "./Aside_Extra";
 
+
+
 const ShortAside = () => {
   return (
     <aside className="hidden">
@@ -43,7 +45,7 @@ const ShortAside = () => {
 
 const FullAside = () => {
   return (
-    <aside>
+    <aside> 
       <section>
         <ul>
           <li title="Home">
@@ -141,10 +143,10 @@ const FullAside = () => {
   );
 };
 
-const Aside = ({ menuToggled, hideAside, toggleAble }) => {
+const Aside = ({ menuToggled, hideAside }) => {
   return (
     <>
-      {(menuToggled)  && <FullAside />}
+      {(menuToggled)  && <FullAside  />}
 
       {(!menuToggled && !hideAside) && <ShortAside />}
     </>

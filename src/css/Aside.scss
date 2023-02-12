@@ -9,7 +9,7 @@ aside {
   z-index: 999;
 
 
-  &:hover {
+  &:hover, &.scroll {
     overflow-y: scroll;
     width: 237px;
   }

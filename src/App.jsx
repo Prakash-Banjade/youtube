@@ -14,6 +14,9 @@ const Shorts = lazy(() => import("./routes/Shorts"));
 function App() {
   const [menuToggled, setMenuToggled] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+  const [smallSearchInput, setSmallSearchInput] = useState(false)
+    const [smallInputExpand, setSmallInputExpand] = useState(false);
+
 
   const { progress, setProgress, setOrientation } = useContext(VideosContext);
 
@@ -29,6 +32,8 @@ function App() {
       document.body.style.overflowY = "scroll";
       setOrientation('landscape')
     }
+
+    setMenuToggled(false)
   }, [location]);
 
   const [width, setWidth] = useState(window.innerWidth);
@@ -49,6 +54,7 @@ function App() {
     setToggleAble(width < 1300? false : true)
     setMenuToggled(width < 1300? false : true)
     setHideAside(width < 600? true : false)
+    setSmallSearchInput(width < 600? true : false)
   }, [width])
 
 
@@ -64,25 +70,29 @@ function App() {
         setMenuToggled={setMenuToggled}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
+        smallSearchInput={smallSearchInput}
+        smallInputExpand={smallInputExpand}
+        setSmallInputExpand={setSmallInputExpand}
       />
       <div className="page-wrapper">
         <Aside menuToggled={menuToggled} toggleAble={toggleAble} hideAside={hideAside} />
 
-        <main className={`${(!menuToggled || !toggleAble) ? "toggled" : ""} ${hideAside? 'fullWidth' : ''}`}>
+        <main className={`${(!menuToggled && toggleAble) ? "toggled" : ""} ${hideAside? 'fullWidth' : ''}`}>
           <Suspense
             fallback={
-              location.pathname === "/" ? <Skeleton /> : <h1>Loading...</h1>
+              (location.pathname === "/" || "/youtube") ? <Skeleton /> : <h1>Loading...</h1>
             }
           >
             <Routes>
               <Route end path="/" element={<Home />} />
+              <Route end path="/youtube" element={<Home />} />
 
               <Route end path="/shorts" element={<Shorts />} />
             </Routes>
           </Suspense>
         </main>
       </div>
-      {(menuToggled && hideAside) && <div className="shadow"></div>}
+      {menuToggled && !toggleAble && <div className="shadow" onClick={()=>{setMenuToggled(false)}}></div>}
     </>
   );
 }

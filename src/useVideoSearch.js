@@ -54,7 +54,7 @@ export default function useVideoSearch(
         setProgress(0);
         setError(true);
       });
-  }, [query, page, orientation]);
+  }, [query, page]);
 
   return { isloading, result, error, hasMore, progress, setProgress };
 }

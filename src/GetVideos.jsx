@@ -1,5 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import React, { createContext, useState } from "react";
 import useVideoSearch from "./useVideoSearch";
 
 export const VideosContext = createContext();
@@ -9,21 +8,11 @@ const GetVideos = (props) => {
   const [page, setPage] = useState(1);
   const [orientation, setOrientation] = useState(null)
 
-  const location = useLocation()
 
-  useEffect(()=>{
-    if (location.pathname === '/'){
-      setOrientation('landscape')
-    }else if(location.pathname === '/shorts'){
-      setOrientation('portrait')
-    }
-    setPage(1)
-  }, [location])
-
-  const { isloading, result, error, hasMore, progress, setProgress } = useVideoSearch(query, page, orientation);
+  // const { isloading, result, error, hasMore, progress, setProgress } = useVideoSearch(query, page, orientation);
   return (
     <VideosContext.Provider
-      value={{ result, isloading, setQuery, error, hasMore, setPage, progress, setProgress, setOrientation }}
+      value={{ query, setQuery, page, setPage, setOrientation }}
     >
       {props.children}
     </VideosContext.Provider>

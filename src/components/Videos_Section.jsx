@@ -16,6 +16,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import IconButton from "@mui/material/IconButton";
 import WatchLaterOutlinedIcon from "@mui/icons-material/WatchLaterOutlined";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
+import useVideoSearch from "../useVideoSearch";
 
 const VideoDetailsAndMore = ({ video }) => {
   const [showPopup, setShowPopup] = useState(false);
@@ -109,7 +110,8 @@ const VideoDetailsAndMore = ({ video }) => {
 };
 
 const Videos_Section = () => {
-  const { result, isloading, hasMore, setPage } = useContext(VideosContext);
+  const {query, page, setPage} = useContext(VideosContext)
+  const { result, isloading, hasMore } = useVideoSearch(query, page, 'landscape');
 
   const observer = useRef();
   const lastVideoRef = useCallback(
@@ -205,7 +207,7 @@ const Videos_Section = () => {
                       style={{ display: "grid", placeItems: "center" }}
                     >
                       <video
-                        src={video.video_files[2].link}
+                        src={video.video_files[0].link}
                         poster={video.image}
                         // controls
                         preload="none"
