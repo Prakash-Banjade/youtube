@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.css": "/youtube/static/css/main.93e62998.css",
-    "main.js": "/youtube/static/js/main.5ff35ff9.js",
+    "main.css": "/youtube/static/css/main.0cd56a53.css",
+    "main.js": "/youtube/static/js/main.a93bd471.js",
     "static/css/909.327e31d7.chunk.css": "/youtube/static/css/909.327e31d7.chunk.css",
-    "static/js/909.2b4c335a.chunk.js": "/youtube/static/js/909.2b4c335a.chunk.js",
-    "static/css/867.0cc82241.chunk.css": "/youtube/static/css/867.0cc82241.chunk.css",
-    "static/js/867.df7736d5.chunk.js": "/youtube/static/js/867.df7736d5.chunk.js",
+    "static/js/909.494049e7.chunk.js": "/youtube/static/js/909.494049e7.chunk.js",
+    "static/css/880.2d4c73a6.chunk.css": "/youtube/static/css/880.2d4c73a6.chunk.css",
+    "static/js/880.58cd19e1.chunk.js": "/youtube/static/js/880.58cd19e1.chunk.js",
     "static/media/YouTubeShorts.svg": "/youtube/static/media/YouTubeShorts.4501444dda381dfda001a8d533ccb90e.svg",
     "static/media/YouTube-Logo.svg": "/youtube/static/media/YouTube-Logo.52190ee2d653978a5e00fd9284a44730.svg",
     "static/media/youtubekids.svg": "/youtube/static/media/youtubekids.61e71dd9366ea6a4e4b08a2c2ddb7706.svg",
@@ -14,15 +14,15 @@
     "static/media/live.svg": "/youtube/static/media/live.d0c2b2fdd510ee627c05cd7b7846e235.svg",
     "index.html": "/youtube/index.html",
     "static/media/youtubemusic.svg": "/youtube/static/media/youtubemusic.12349b9489a4472f1df3792c8e180637.svg",
-    "main.93e62998.css.map": "/youtube/static/css/main.93e62998.css.map",
-    "main.5ff35ff9.js.map": "/youtube/static/js/main.5ff35ff9.js.map",
+    "main.0cd56a53.css.map": "/youtube/static/css/main.0cd56a53.css.map",
+    "main.a93bd471.js.map": "/youtube/static/js/main.a93bd471.js.map",
     "909.327e31d7.chunk.css.map": "/youtube/static/css/909.327e31d7.chunk.css.map",
-    "909.2b4c335a.chunk.js.map": "/youtube/static/js/909.2b4c335a.chunk.js.map",
-    "867.0cc82241.chunk.css.map": "/youtube/static/css/867.0cc82241.chunk.css.map",
-    "867.df7736d5.chunk.js.map": "/youtube/static/js/867.df7736d5.chunk.js.map"
+    "909.494049e7.chunk.js.map": "/youtube/static/js/909.494049e7.chunk.js.map",
+    "880.2d4c73a6.chunk.css.map": "/youtube/static/css/880.2d4c73a6.chunk.css.map",
+    "880.58cd19e1.chunk.js.map": "/youtube/static/js/880.58cd19e1.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.93e62998.css",
-    "static/js/main.5ff35ff9.js"
+    "static/css/main.0cd56a53.css",
+    "static/js/main.a93bd471.js"
   ]
 }
