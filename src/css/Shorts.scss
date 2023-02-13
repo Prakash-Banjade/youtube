@@ -46,7 +46,7 @@
   }
 }
 
-.video-details{
+.video-details.shorts{
   position: absolute;
   z-index: 90;
   top: calc(100% - 148px);
@@ -83,7 +83,8 @@
     cursor: pointer;
 
     &.hover, &.subscribed{
-      background: #909090 !important;
+      background: red !important;
+      color: white;
 
     }
   }

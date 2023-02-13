@@ -1,6 +1,6 @@
 import React, { useRef, useState, useContext, useEffect } from "react";
 import "../css/Tags.scss";
-import { VideosContext } from "../GetVideos";
+import { APIParamsContext } from "../APIParams";
 
 const Tags = () => {
   const tags = [
@@ -30,15 +30,14 @@ const Tags = () => {
   const containerRef = useRef(null);
   const [scrollLeft, setScrollLeft] = useState(0);
 
-  const { setQuery } = useContext(VideosContext);
+  const { setQuery } = useContext(APIParamsContext);
   const handleTouchStart = (e) => {
-    e.preventDefault();
     const touch = e.touches[0];
     setScrollLeft(touch.pageX);
   };
 
   const handleTouchMove = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     const touch = e.touches[0];
     containerRef.current.scrollLeft += scrollLeft - touch.pageX;
     setScrollLeft(touch.pageX);
@@ -51,32 +50,36 @@ const Tags = () => {
     e.target.classList.add("active");
   };
 
-  useEffect(()=>{
-    Array.from(document.getElementsByClassName("tag"))[0].classList.add('active')
-  },[])
+  useEffect(() => {
+    Array.from(document.getElementsByClassName("tag"))[0].classList.add(
+      "active"
+    );
+  }, []);
 
   return (
-    <div
-      className="tags"
-      ref={containerRef}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-    >
-      {tags.map((tag, ind) => (
-        <button
-          key={tag}
-          type="button"
-          className="tag"
-          onClickCapture={(e) => {
-            setQuery(e.target.innerText);
-            document.querySelector(".searchInputBox").value =
-              e.target.innerText;
-            handleActiveTag(e);
-          }}
-        >
-          {tag}
-        </button>
-      ))}
+    <div className="tags-wrapper">
+      <div
+        className="tags"
+        ref={containerRef}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+      >
+        {tags.map((tag, ind) => (
+          <button
+            key={tag}
+            type="button"
+            className="tag"
+            onClickCapture={(e) => {
+              setQuery(e.target.innerText);
+              document.querySelector(".searchInputBox").value =
+                e.target.innerText;
+              handleActiveTag(e);
+            }}
+          >
+            {tag}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

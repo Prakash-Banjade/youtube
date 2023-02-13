@@ -1,6 +1,6 @@
 import React, { useState, useContext, useRef } from "react";
 import "../css/Navbar.scss";
-import { VideosContext } from "../GetVideos";
+import { APIParamsContext } from "../APIParams";
 
 import Logo from "../assets/YouTube-Logo.svg";
 // material ui
@@ -26,7 +26,7 @@ const Navbar = ({
   const smallInputRef = useRef();
   const country = { name: "Nepal", abbr: "np" };
 
-  const { setQuery, setPage } = useContext(VideosContext);
+  const { setQuery, setPage } = useContext(APIParamsContext);
   const handleSubmit = (e) => {
     e.preventDefault();
     setPage(1);

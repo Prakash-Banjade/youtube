@@ -68,6 +68,11 @@ main.inShorts{
   height: calc(100vh - 55px);
 }
 
+main.fullWidth{
+  width: 100% !important;
+  margin-left: 0 !important;
+}
+
 hr{
   border: none;
   background: #3f3f3f;
@@ -153,6 +158,7 @@ div.slide-container:focus{
   .right-content{
     margin: 0 8px !important;
     gap: 10px;
+    flex-grow: 1;
   }
 
   .right-content svg{

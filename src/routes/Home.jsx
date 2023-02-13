@@ -2,11 +2,11 @@ import React from 'react'
 import Tags from '../components/Tags'
 import Videos from '../components/Videos_Section'
 
-const Home = () => {
+const Home = ({setCurrentVideos}) => {
   return (
     <div className="home-content">
       <Tags />
-      <Videos />
+      <Videos setCurrentVideos={setCurrentVideos} />
     </div>
   )
 }

@@ -7,7 +7,8 @@ import React, {
 } from "react";
 import "../css/Videos_Section.scss";
 import Skeleton from "../Skeleton";
-import { VideosContext } from "../GetVideos";
+import { APIParamsContext } from "../APIParams";
+import {Link} from 'react-router-dom'
 
 import CircularProgress from "@mui/material/CircularProgress";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
@@ -63,13 +64,15 @@ const VideoDetailsAndMore = ({ video }) => {
           setShowMoreBtn(false);
         }}
       >
-        <a href={video.user.url}>
+        <a href={video.user.url} title={video.user.name}>
           <img src={video.image} loading="lazy" alt="channelLogo" />
         </a>
 
         <div className="details">
-          <h2>
-            {video.user.name}
+          <h2 title={video.user.name}>
+            {video.user.name.length > 18
+              ? `${video.user.name.slice(0, 18)}...`
+              : video.user.name}
 
             <IconButton
               ref={buttonRef}
@@ -109,9 +112,17 @@ const VideoDetailsAndMore = ({ video }) => {
   );
 };
 
-const Videos_Section = () => {
-  const {query, page, setPage} = useContext(VideosContext)
-  const { result, isloading, hasMore } = useVideoSearch(query, page, 'landscape');
+const Videos_Section = ({setCurrentVideos}) => {
+  const { query, page, setPage } = useContext(APIParamsContext);
+  const { result, isloading, hasMore } = useVideoSearch(
+    query,
+    page,
+    "landscape"
+  );
+
+  setTimeout(()=>{
+    setCurrentVideos(result)
+  }, 1000)
 
   const observer = useRef();
   const lastVideoRef = useCallback(
@@ -151,9 +162,7 @@ const Videos_Section = () => {
 
   const [endOfTheVideos, setEndOfTheVideos] = useState(false);
   useEffect(() => {
-    if (
-      result.length === document.querySelector(".container").childElementCount
-    ) {
+    if (!hasMore) {
       setEndOfTheVideos(true);
     } else {
       setEndOfTheVideos(false);
@@ -172,38 +181,13 @@ const Videos_Section = () => {
             if (result.length === ind + 1) {
               return (
                 <div
-                  className="video-container"
                   ref={lastVideoRef}
-                  key={video.id}
-                >
-                  <video
-                    src={video.video_files[2].link}
-                    poster={video.image}
-                    controls
-                    preload="none"
-                  />
-
-                  <p className="duration">{calcTimeDuration(video.duration)}</p>
-                  <div className="video-details">
-                    <img src={video.image} alt="channelLogo" />
-
-                    <div className="details">
-                      <h2>{video.user.name}</h2>
-                      <p>{String(video.id).slice(0, 3)}K views</p>
-                    </div>
-                  </div>
-                </div>
-              );
-            } else {
-              return (
-                <div
                   className="video-container"
-                  ref={lastVideoRef}
                   key={video.id}
                 >
                   <div style={{ width: "100%", overflow: "hidden" }}>
-                    <a
-                      href="/"
+                    <Link
+                      to={`watch/${video.id}`}
                       style={{ display: "grid", placeItems: "center" }}
                     >
                       <video
@@ -213,7 +197,30 @@ const Videos_Section = () => {
                         preload="none"
                         title="Play"
                       />
-                    </a>
+                    </Link>
+                  </div>
+
+                  <p className="duration">{calcTimeDuration(video.duration)}</p>
+
+                  <VideoDetailsAndMore video={video} />
+                </div>
+              );
+            } else {
+              return (
+                <div className="video-container" key={video.id}>
+                  <div style={{ width: "100%", overflow: "hidden" }}>
+                    <Link
+                      to={`watch/${video.id}`}
+                      style={{ display: "grid", placeItems: "center" }}
+                    >
+                      <video
+                        src={video.video_files[0].link}
+                        poster={video.image}
+                        // controls
+                        preload="none"
+                        title="Play"
+                      />
+                    </Link>
                   </div>
 
                   <p className="duration">{calcTimeDuration(video.duration)}</p>

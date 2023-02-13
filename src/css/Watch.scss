@@ -1,0 +1,36 @@
+.watch-wrapper {
+  display: flex;
+  //   flex-wrap: wrap;
+  gap: 20px;
+  padding: 30px;
+
+  & > * {
+    border: 1px solid red;
+  }
+
+  .watch-videoContainer {
+    flex: 1 1 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    & > * {
+      border: 1px solid red;
+    }
+    .playingVideoContainer {
+      //   width: 100%;
+
+      video {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .suggested-videos-container {
+    flex: 1 1 30%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+}

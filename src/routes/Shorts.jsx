@@ -1,5 +1,5 @@
-import React, { useState, useContext, useRef, useEffect } from "react";
-import { VideosContext } from "../GetVideos";
+import React, { useState, useContext } from "react";
+import { APIParamsContext } from "../APIParams";
 
 import "../css/Shorts.scss";
 import useVideoSearch from "../useVideoSearch";
@@ -8,7 +8,7 @@ import ShortVideoItem from "../components/ShortVideoItem";
 
 
 const Shorts = () => {
-  const { query, page } = useContext(VideosContext);
+  const { query, page } = useContext(APIParamsContext);
   const { result } = useVideoSearch(query, page, "portrait");
   const [currentDivIndex, setCurrentDivIndex] = useState(0);
   const [slideClass, setSlideClass] = useState("");
@@ -19,13 +19,10 @@ const Shorts = () => {
     return (
       <ShortVideoItem
         key={video.id}
-        src={video.video_files[2].link}
-        poster={video.image}
+        video={video}
         preload={currentDivIndex === index ? "auto" : "none"}
         play={currentDivIndex === index ? true : false}
         currentDivIndex={currentDivIndex}
-        id={video.id}
-        channelName={video.user.name}
       />
     );
   });

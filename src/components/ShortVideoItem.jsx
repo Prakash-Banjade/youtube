@@ -9,13 +9,10 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import Tooltip from "@mui/material/Tooltip";
 
 const ShortVideoItem = ({
-  src,
-  poster,
+  video,
   preload,
   play,
   currentDivIndex,
-  id,
-  channelName,
 }) => {
   const videoRef = useRef(null);
   const [liked, setLiked] = useState(false);
@@ -59,11 +56,11 @@ const ShortVideoItem = ({
         <video
           ref={videoRef}
           className="shortVideos"
-          src={src}
-          poster={poster}
+          src={video.video_files[2].link}
+          poster={video.image}
           // controls
           onClick={handleClick}
-          onLoadedData={handleLoadedData}
+          // onLoadedData={handleLoadedData}
           // autoPlay={autoplay}
           preload={preload}
           loop
@@ -76,15 +73,16 @@ const ShortVideoItem = ({
           />
         </div>
 
-        <div className="video-details">
-          <div className="channelName">
-            {channelName}
-            <img src={poster} alt="channel-logo" />
+        <div className="video-details shorts">
+          <div className="channelName" style={{cursor: 'default'}}>
+            {video.user.name}
+            <a href={video.user.url} >
+            <img src={video.image} alt="channel-logo" />
+            </a>
           </div>
           <div className="subscribe-btn" >
             <p onClick={(e)=>{
             e.target.parentElement.classList.toggle('subscribed')
-            console.log('clicked')
           }}>Subscribe</p>
           </div>
         </div>
@@ -108,7 +106,7 @@ const ShortVideoItem = ({
               >
                 <ThumbUpIcon sx={{ color: liked ? "var(--dark)" : "white" }} />
               </div>
-              <p className="detail">{String(id).slice(0, 3)}K</p>
+              <p className="detail">{String(video.id).slice(0, 3)}K</p>
             </div>
           </Tooltip>
 
@@ -142,7 +140,7 @@ const ShortVideoItem = ({
                 <CommentIcon />
               </div>
               <p className="detail">
-                {String((40 / 100) * Number(id)).slice(0, 2)}K
+                {String((40 / 100) * Number(video.id)).slice(0, 2)}K
               </p>
             </div>
           </Tooltip>

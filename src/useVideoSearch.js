@@ -48,11 +48,13 @@ export default function useVideoSearch(
         setResult((prev) => [...prev, ...res.videos]);
         setHasMore(Boolean(res.next_page));
         setProgress(100);
+        console.log(res)
       })
       .catch((e) => {
         setIsloading(false);
         setProgress(0);
         setError(true);
+        console.log(e)
       });
   }, [query, page]);
 

@@ -70,6 +70,8 @@
             align-items: center;
             justify-content: space-between;
             white-space: nowrap;
+            cursor: default;
+            // overflow: hidden;
           }
 
           p {
@@ -122,10 +124,15 @@
 
 .loading {
   margin: 1.7rem 0;
+  display: grid;
+  place-items: center;
+  width: 100%;
 }
 
 .endOfVideos {
-  padding: 4rem;
+  // padding: 4rem;
+  margin: 65px 10px;
+  justify-content: center;
   display: flex;
   align-items: center;
   gap: 1rem;

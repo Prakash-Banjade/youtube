@@ -58,7 +58,7 @@ nav {
   .logo {
     position: relative;
     img {
-      margin-top: 2px;
+      margin-top: 4px;
       width: 120px;
     }
 
@@ -144,8 +144,6 @@ nav {
   gap: 20px;
   align-items: center;
   margin: 0 30px;
-  // border: 1px solid red;
-  flex-grow: 1;
 
   form {
     height: 100%;
