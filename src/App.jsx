@@ -18,8 +18,6 @@ function App() {
   const [smallSearchInput, setSmallSearchInput] = useState(false);
   const [smallInputExpand, setSmallInputExpand] = useState(false);
 
-  const [currentVideos, setCurrentVideos] = useState([]);
-
   const { progress, setProgress } = useContext(APIParamsContext);
 
   const location = useLocation();
@@ -107,19 +105,19 @@ function App() {
               <Route
                 end
                 path="/"
-                element={<Home setCurrentVideos={setCurrentVideos} />}
+                element={<Home/>}
               />
               <Route
                 end
                 path="/youtube"
-                element={<Home setCurrentVideos={setCurrentVideos} />}
+                element={<Home />}
               />
 
               <Route end path="/shorts" element={<Shorts />} />
               <Route
                 end
                 path="watch/:id"
-                element={<Watch currentResults={currentVideos} />}
+                element={<Watch />}
               />
             </Routes>
           </Suspense>

@@ -129,6 +129,10 @@ div.slide-container:focus{
     margin-left: 0 !important;
   }
 
+  .watch-wrapper{
+    padding: 0 !important;
+  }
+
   ::-webkit-scrollbar {
     width: 2px;
   }

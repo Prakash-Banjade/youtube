@@ -8,8 +8,8 @@ import React, {
 import "../css/Videos_Section.scss";
 import Skeleton from "../Skeleton";
 import { APIParamsContext } from "../APIParams";
-import { Link } from "react-router-dom";
-import { v4 as uuidv4 } from 'uuid';
+import { Link, useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 import CircularProgress from "@mui/material/CircularProgress";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
@@ -65,10 +65,9 @@ const VideoDetailsAndMore = ({ video }) => {
           setShowMoreBtn(false);
         }}
       >
-        <a href={video.user.url} title={video.user.name}>
+        {false && <a href={video.user.url} title={video.user.name}>
           <img src={video.image} loading="lazy" alt="channelLogo" />
-        </a>
-
+        </a>}
         <div className="details">
           <h2 title={video.user.name}>
             {video.user.name.length > 18
@@ -113,13 +112,15 @@ const VideoDetailsAndMore = ({ video }) => {
   );
 };
 
-const Videos_Section = () => {
+const SuggestedVideos = ({id}) => {
   const { query, page, setPage } = useContext(APIParamsContext);
   const { result, isloading, hasMore } = useVideoSearch(
     query,
     page,
-    "landscape"
+    "landscape",
+    id
   );
+
   const observer = useRef();
   const lastVideoRef = useCallback(
     (node) => {
@@ -163,6 +164,11 @@ const Videos_Section = () => {
     }
   }, [result]);
 
+  const navigate = useNavigate();
+  const handleVideoClick = (id) =>{
+    navigate(`/watch/${id}`);
+  }
+
   return (
     <>
       <section className="videos-section">
@@ -176,8 +182,8 @@ const Videos_Section = () => {
                   key={uuidv4()}
                 >
                   <div style={{ width: "100%", overflow: "hidden" }}>
-                    <Link
-                      to={`watch/${video.id}`}
+                    <div
+                      onClick={()=>{handleVideoClick(video.id)}}
                       style={{ display: "grid", placeItems: "center" }}
                     >
                       <video
@@ -187,7 +193,7 @@ const Videos_Section = () => {
                         preload="none"
                         title="Play"
                       />
-                    </Link>
+                    </div>
                   </div>
 
                   <p className="duration">{calcTimeDuration(video.duration)}</p>
@@ -199,8 +205,8 @@ const Videos_Section = () => {
               return (
                 <div className="video-container" key={uuidv4()}>
                   <div style={{ width: "100%", overflow: "hidden" }}>
-                    <Link
-                      to={`watch/${video.id}`}
+                    <div
+                      onClick={()=>{handleVideoClick(video.id)}}
                       style={{ display: "grid", placeItems: "center" }}
                     >
                       <video
@@ -210,7 +216,7 @@ const Videos_Section = () => {
                         preload="none"
                         title="Play"
                       />
-                    </Link>
+                    </div>
                   </div>
 
                   <p className="duration">{calcTimeDuration(video.duration)}</p>
@@ -244,4 +250,4 @@ const Videos_Section = () => {
   );
 };
 
-export default Videos_Section;
+export default SuggestedVideos;

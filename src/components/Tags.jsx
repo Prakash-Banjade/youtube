@@ -30,7 +30,7 @@ const Tags = () => {
   const containerRef = useRef(null);
   const [scrollLeft, setScrollLeft] = useState(0);
 
-  const { setQuery } = useContext(APIParamsContext);
+  const { setQuery, setPage } = useContext(APIParamsContext);
   const handleTouchStart = (e) => {
     const touch = e.touches[0];
     setScrollLeft(touch.pageX);
@@ -70,6 +70,7 @@ const Tags = () => {
             type="button"
             className="tag"
             onClickCapture={(e) => {
+              setPage(1)
               setQuery(e.target.innerText);
               document.querySelector(".searchInputBox").value =
                 e.target.innerText;

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useContext, useRef } from "react";
 import "../css/Navbar.scss";
 import { APIParamsContext } from "../APIParams";
 
@@ -13,6 +13,7 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import MicOutlinedIcon from "@mui/icons-material/MicOutlined";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Tooltip from "@mui/material/Tooltip";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = ({
   setMenuToggled,
@@ -27,10 +28,13 @@ const Navbar = ({
   const country = { name: "Nepal", abbr: "np" };
 
   const { setQuery, setPage } = useContext(APIParamsContext);
+  const location = useLocation()
+  const navigate = useNavigate()
   const handleSubmit = (e) => {
     e.preventDefault();
     setPage(1);
     setQuery(searchQuery);
+    if (location.pathname.includes('watch')) navigate('/')
   };
 
   const handleFocus = (e) => {
