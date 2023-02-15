@@ -205,4 +205,9 @@ div.slide-container:focus{
     gap: 20px !important;
     padding-left: 20px !important;
   }
+
+  .playingVideoContainer{
+    position: fixed;
+    top: 55px;
+  }
 }

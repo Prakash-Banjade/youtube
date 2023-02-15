@@ -31,7 +31,7 @@ const NotificationIcon = ({ currentStat }) => {
   );
 };
 
-const VideoDetails = ({ video }) => {
+const VideoDetails = ({ video, width }) => {
   const [liked, setLiked] = useState(false);
   const [disLiked, setDisLiked] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
@@ -74,16 +74,16 @@ const VideoDetails = ({ video }) => {
   };
 
   return (
-    <div className="watch-video-details">
+    <div className="watch-video-details" style={width < 500? {marginTop: '276px'} : {}}>
       <section className="left-details">
         <div className="left-content">
-        <div className="logo">
-          <img src={video.image} alt="logo" loading="lazy" />
-        </div>
-        <div className="author">
-          <h3>{video.user.name}</h3>
-          <p>{generateSubscribers(video.id)} Subscribers</p>
-        </div>
+          <div className="logo">
+            <img src={video.image} alt="logo" loading="lazy" />
+          </div>
+          <div className="author">
+            <h3>{video.user.name}</h3>
+            <p>{generateSubscribers(video.id)} Subscribers</p>
+          </div>
         </div>
         <div className="subscribe-btn hideOverflow" ref={subscribeBtnRef}>
           {!subscribed && (
@@ -200,10 +200,87 @@ const VideoDetails = ({ video }) => {
   );
 };
 
-const Watch = ({width}) => {
+const VideoDescription = ({ video }) => {
+  const descriptionBoxRef = useRef(null);
+  const showMoreBtnRef = useRef(null);
+
+  const [descBoxOpen, setDescBoxOpen] = useState(false);
+  return (
+    <>
+      <div
+        className={`description-box ${!descBoxOpen ? "" : "hidden"}`}
+        ref={descriptionBoxRef}
+      >
+        <header>
+        {String(video.id).slice(0, 3)}K views &nbsp; 12 hours ago&nbsp;
+          <span> #pexels #freeVideos #freeStockVideos</span>
+        </header>
+
+        <section className="description-body">
+          <p className={`description-text ${descBoxOpen ? "" : "hidden"}`}>
+            {" "}
+            Pexels is a fantastic resource for anyone looking for high-quality,
+            royalty-free photos and videos. With a vast collection of
+            user-contributed content, Pexels offers a wide range of creative
+            options for personal and commercial projects alike. The platform's
+            easy-to-use search functionality and simple licensing terms make it
+            a go-to choice for many designers, bloggers, and social media
+            managers. Overall, Pexels is an excellent example of the power of
+            crowdsourcing and community-driven content creation, and it's a
+            valuable tool for anyone looking to enhance their visual content.
+          </p>
+
+          {descBoxOpen && (
+            <div className="description-links">
+              <div className="link">
+                Check out Pexels here:{" "}
+                <a href="https://www.pexels.com/">https://www.pexels.com/</a>
+              </div>
+              <div className="link">
+                Start building with Pexel:{" "}
+                <a href="https://www.pexels.com/api/">
+                  https://www.pexels.com/api/
+                </a>
+              </div>
+            </div>
+          )}
+
+          <div className="showLess">
+            {descBoxOpen && (
+              <button
+                type="button"
+                className="showLess"
+                onClick={() => {
+                  setDescBoxOpen(false);
+                }}
+              >
+                Show Less
+              </button>
+            )}
+          </div>
+          {!descBoxOpen && (
+            <button
+              type="button"
+              className="showMoreBtn"
+              ref={showMoreBtnRef}
+              onClick={() => {
+                setDescBoxOpen(true);
+              }}
+            >
+              Show More
+            </button>
+          )}
+        </section>
+      </div>
+    </>
+  );
+};
+
+const Watch = ({ width }) => {
   const params = useParams();
   const { id } = params;
-  const playingVideoRef = useRef();
+  const playingVideoRef = useRef(null);
+  const playingVideoContainerRef = useRef(null)
 
   const { requestVideo } = useVideoGet(id);
 
@@ -212,7 +289,7 @@ const Watch = ({width}) => {
       {requestVideo !== undefined && requestVideo.video_files !== undefined && (
         <div className="watch-wrapper">
           <section className="watch-videoContainer">
-            <div className="playingVideoContainer">
+            <div className="playingVideoContainer" style={width < 500 ?{position: 'fixed', top: '55px', zIndex: '999'} : {}} ref={playingVideoContainerRef}>
               <video
                 ref={playingVideoRef}
                 src={requestVideo.video_files[0].link}
@@ -226,9 +303,9 @@ const Watch = ({width}) => {
               />
             </div>
 
-            <VideoDetails video={requestVideo} />
+            <VideoDetails video={requestVideo} width={width} />
 
-            <div className="description"></div>
+            <VideoDescription video={requestVideo} />
 
             <div className="comment"></div>
           </section>
