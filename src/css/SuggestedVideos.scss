@@ -1,0 +1,46 @@
+@media screen and (min-width: 1000px) {
+  #channelLogo {
+    display: none;
+  }
+
+  .wideSkeleton {
+    display: none;
+  }
+
+  .skeleton-container > * {
+    margin: 0 !important;
+  }
+
+  .suggestedVideos {
+    .video-container {
+      gap: 10px;
+      background-color: transparent !important;
+      margin-bottom: 10px !important;
+      .video-wrapper {
+        position: relative;
+        cursor: pointer;
+      }
+      .video-details {
+        position: static !important;
+
+        .details {
+          transform: translateY(0) !important;
+          // justify-content: center;
+          h2 {
+            white-space: normal !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 999px) {
+  .wideSkeleton {
+    display: block;
+  }
+
+  .narrowSkeleton {
+    display: none;
+  }
+}

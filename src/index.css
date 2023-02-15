@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap');
 *{
   margin: 0;
   padding: 0;
@@ -200,3 +200,9 @@ div.slide-container:focus{
   }
 }
 
+@media screen and (max-width: 500px){
+  .videos-section div.container .video-container .video-details{
+    gap: 20px !important;
+    padding-left: 20px !important;
+  }
+}

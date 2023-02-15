@@ -69,12 +69,12 @@ const Tags = () => {
             key={tag}
             type="button"
             className="tag"
-            onClickCapture={(e) => {
+            onClick={(e) => {
+              handleActiveTag(e);
               setPage(1)
               setQuery(e.target.innerText);
               document.querySelector(".searchInputBox").value =
                 e.target.innerText;
-              handleActiveTag(e);
             }}
           >
             {tag}

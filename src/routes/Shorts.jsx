@@ -5,8 +5,6 @@ import "../css/Shorts.scss";
 import useVideoSearch from "../useVideoSearch";
 import ShortVideoItem from "../components/ShortVideoItem";
 
-
-
 const Shorts = () => {
   const { query, page } = useContext(APIParamsContext);
   const { result } = useVideoSearch(query, page, "portrait");

@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 
 export default function ProgressBar({ videoRef, duration, setDuration }) {
   const [currentTime, setCurrentTime] = useState(0);
-  //   const [duration, setDuration] = useState(0);
   const [isScrubbing, setIsScrubbing] = useState(false);
   const progressBarRef = useRef();
   const progressBarFillRef = useRef();
@@ -57,10 +56,6 @@ export default function ProgressBar({ videoRef, duration, setDuration }) {
       }%`;
       videoRef.current.currentTime = newTime;
     }
-    setTimeout(() => {
-      progressBar.querySelector(".progress-bar-fill").style.transition =
-        isScrubbing ? "none" : "width 1s linear";
-    }, 200);
   };
 
   const progressPercentage = (currentTime / duration) * 100;
@@ -79,7 +74,6 @@ export default function ProgressBar({ videoRef, duration, setDuration }) {
         ref={progressBarFillRef}
         style={{
           width: `${progressPercentage}%`,
-          transition: isScrubbing ? "none" : "width 1s linear",
         }}
       ></div>
     </div>

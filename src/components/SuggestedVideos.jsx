@@ -6,9 +6,11 @@ import React, {
   useEffect,
 } from "react";
 import "../css/Videos_Section.scss";
-import Skeleton from "../Skeleton";
+import "../css/SuggestedVideos.scss";
+
+import Skeleton, { Narrow_Video_Skeleton } from "../Skeleton";
 import { APIParamsContext } from "../APIParams";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
 import CircularProgress from "@mui/material/CircularProgress";
@@ -20,7 +22,7 @@ import WatchLaterOutlinedIcon from "@mui/icons-material/WatchLaterOutlined";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import useVideoSearch from "../useVideoSearch";
 
-const VideoDetailsAndMore = ({ video }) => {
+const VideoDetailsAndMore = ({ video, width }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [showMoreBtn, setShowMoreBtn] = useState(false);
 
@@ -65,13 +67,13 @@ const VideoDetailsAndMore = ({ video }) => {
           setShowMoreBtn(false);
         }}
       >
-        {false && <a href={video.user.url} title={video.user.name}>
+        <a href={video.user.url} title={video.user.name} id="channelLogo">
           <img src={video.image} loading="lazy" alt="channelLogo" />
-        </a>}
+        </a>
         <div className="details">
           <h2 title={video.user.name}>
-            {video.user.name.length > 18
-              ? `${video.user.name.slice(0, 18)}...`
+            {video.user.name.length > 12 && width > 500
+              ? `${video.user.name.slice(0, 12)}...`
               : video.user.name}
 
             <IconButton
@@ -112,7 +114,7 @@ const VideoDetailsAndMore = ({ video }) => {
   );
 };
 
-const SuggestedVideos = ({id}) => {
+const SuggestedVideos = ({ id, width }) => {
   const { query, page, setPage } = useContext(APIParamsContext);
   const { result, isloading, hasMore } = useVideoSearch(
     query,
@@ -165,14 +167,14 @@ const SuggestedVideos = ({id}) => {
   }, [result]);
 
   const navigate = useNavigate();
-  const handleVideoClick = (id) =>{
+  const handleVideoClick = (id) => {
     navigate(`/watch/${id}`);
-  }
+  };
 
   return (
     <>
       <section className="videos-section">
-        <div ref={videoContainerRef} className="container">
+        <div ref={videoContainerRef} className="container suggestedVideos">
           {result.map((video, ind) => {
             if (result.length === ind + 1) {
               return (
@@ -181,11 +183,14 @@ const SuggestedVideos = ({id}) => {
                   className="video-container"
                   key={uuidv4()}
                 >
-                  <div style={{ width: "100%", overflow: "hidden" }}>
-                    <div
-                      onClick={()=>{handleVideoClick(video.id)}}
-                      style={{ display: "grid", placeItems: "center" }}
-                    >
+                  <div
+                    className="video-wrapper"
+                    style={{ width: "100%", overflow: "hidden" }}
+                    onClick={() => {
+                      handleVideoClick(video.id);
+                    }}
+                  >
+                    <div style={{ display: "grid", placeItems: "center" }}>
                       <video
                         src={video.video_files[0].link}
                         poster={video.image}
@@ -194,9 +199,10 @@ const SuggestedVideos = ({id}) => {
                         title="Play"
                       />
                     </div>
+                    <p className="duration">
+                      {calcTimeDuration(video.duration)}
+                    </p>
                   </div>
-
-                  <p className="duration">{calcTimeDuration(video.duration)}</p>
 
                   <VideoDetailsAndMore video={video} />
                 </div>
@@ -204,11 +210,14 @@ const SuggestedVideos = ({id}) => {
             } else {
               return (
                 <div className="video-container" key={uuidv4()}>
-                  <div style={{ width: "100%", overflow: "hidden" }}>
-                    <div
-                      onClick={()=>{handleVideoClick(video.id)}}
-                      style={{ display: "grid", placeItems: "center" }}
-                    >
+                  <div
+                    className="video-wrapper"
+                    style={{ width: "100%", overflow: "hidden" }}
+                    onClick={() => {
+                      handleVideoClick(video.id);
+                    }}
+                  >
+                    <div style={{ display: "grid", placeItems: "center" }}>
                       <video
                         src={video.video_files[0].link}
                         poster={video.image}
@@ -217,18 +226,22 @@ const SuggestedVideos = ({id}) => {
                         title="Play"
                       />
                     </div>
+                    <p className="duration">
+                      {calcTimeDuration(video.duration)}
+                    </p>
                   </div>
 
-                  <p className="duration">{calcTimeDuration(video.duration)}</p>
-
-                  <VideoDetailsAndMore video={video} />
+                  <VideoDetailsAndMore video={video} width={width} />
                 </div>
               );
             }
           })}
         </div>
 
-        {isloading && <Skeleton />}
+        <div className="narrowSkeleton">
+          {isloading && <Narrow_Video_Skeleton />}
+        </div>
+        <div className="wideSkeleton">{isloading && <Skeleton />}</div>
         {isloading && (
           <div className="loading">
             <CircularProgress color="inherit" />
